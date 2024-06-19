@@ -113,7 +113,6 @@ class Simulate_1d_Shear(Simulate):
     """
     Simulation class that runs a 1D shear to asses accuracy of spring value assignment
     """
-
     def __init__(self, ParticleSystem: ParticleSystem):
         self.PS = ParticleSystem
         self.params = self.PS.params
@@ -175,6 +174,9 @@ class Simulate_1d_Shear(Simulate):
 
 
 class Simulate_airbag(Simulate):
+    """
+    Simulation class to aid the simulation of Airbags
+    """
     def __init__(self, ParticleSystem, params):
         # TODO set self.params to self.PS.params and modfiy all references to this previous behaviour
         self.PS = ParticleSystem
@@ -190,7 +192,7 @@ class Simulate_airbag(Simulate):
                        both_sides: bool = True
                        ):
         """
-
+        Run the airbag simulation until convergence
 
         Parameters
         ----------
@@ -361,7 +363,10 @@ class Simulate_airbag(Simulate):
         return ax
 
 
-class SimulateTripleChainWithMass(Simulate): # Simulate chain of  links joining in the  center where there is a large mass.
+class SimulateTripleChainWithMass(Simulate): 
+    """
+    Simulate chain of  links joining in the center where there is a large mass. Used for testing.
+    """
     def __init__(self, ParticleSystem, params):
         self.PS = ParticleSystem
         self.params = params
@@ -415,6 +420,9 @@ class SimulateTripleChainWithMass(Simulate): # Simulate chain of  links joining 
 
 
 class Simulate_Lightsail(Simulate):
+    """
+    Simulation class to aid in simulating Lightsails.
+    """
     def __init__(self, ParticleSystem, ForceCalculator, params):
         # TODO set self.params to self.PS.params and modfiy all references to this previous behaviour
         self.PS = ParticleSystem

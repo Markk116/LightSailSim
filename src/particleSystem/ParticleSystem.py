@@ -799,13 +799,13 @@ class ParticleSystem:
     def displace(self, displacement : list, suppress_warnings = False):
         """
         displaces the associated particle system with the prescribed amount
-        around the center of mass.
+        around the center of mass. 
 
-        Arguments
+        Parameters
         ----------
         displacement_range : list
             list of length 6 representing the displacement magnitudes to
-            perform the stability test. First three values represent lateral
+            perform the displacement. First three values represent lateral
             displacement in meters. Next three values represent
             tilt angle around the centre of mass in degrees.
         suppress_warnings : bool
@@ -851,7 +851,7 @@ class ParticleSystem:
 
     def un_displace(self):
         """
-        Reverses current mesh displacement of the associated particle system.
+        Reverses current displacement of the ParticleSystem using stored value.
 
         """
 

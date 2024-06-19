@@ -5,8 +5,9 @@ modules = [	'src.particleSystem.Particle',
 			'src.particleSystem.ParticleSystem',
 			'src.ExternalForces.OpticalForceCalculator',
 			'src.ExternalForces.LaserBeam',
-			'src.Mesh.Mesher']
-
+			'src.ExternalForces.optical_interpolators.interpolators',
+			'src.Mesh.mesh_functions']
+			
 [build-system]
 requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"

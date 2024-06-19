@@ -307,8 +307,8 @@ class OpticalForceCalculator(Force):
         """
         Calculates the stability coefficients for the particle system
 
-        Arguments
-        ---------
+        Parameters
+        ----------
         displacement_range : list
             list of length two representing the displacement magnitudes to
             perform the stability test. First value represents lateral
