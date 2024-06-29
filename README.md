@@ -7,8 +7,8 @@ This repository features a set of tools for analysing the deformation of membran
 Clone the repository:
 ```bash
 git clone https://github.com/markk116/LightSailSim.git
-pip install -e .
 cd LightSailSim
+pip install -e .
 ```
 Navigate to the project directory:
 ```bash
@@ -29,7 +29,7 @@ cd Simulations
 python Simple_config_round.py
 ```
 
-To get started you can follow the tutourials. Tutourial 1 is a basic overview of the Particle System Model. Tutourial 2 demonstrates the setup of a Lightsail Simulation. Tutourial 3 is yet to be made, but will explain how to add new photonic crystals to LSM.
+To get started you can follow the tutourials. Tutourial 1 is a basic overview of the Particle System Model. Tutourial 2 demonstrates the setup of a Lightsail Simulation. Tutourial 3 is yet to be made, but will explain how to add new photonic crystals to LSS. 
 
 ## Acknowledgement
 Based on Alexander Batchelor: Modeling kite deformation with particle system model.
