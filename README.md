@@ -29,7 +29,7 @@ cd Simulations
 python Simple_config_round.py
 ```
 
-To get started you can follow the tutourials. Tutourial 1 is a basic overview of the Particle System Model. Tutourial 2 demonstrates the setup of a Lightsail Simulation. Tutourial 3 is yet to be made, but will explain how to add new photonic crystals to LSS. 
+To get started you can follow the tutorials. Tutorial 1 is a basic overview of the Particle System Model. Tutorial 2 demonstrates the setup of a Lightsail Simulation. Tutorial 3 is yet to be made, but will explain how to add new photonic crystals to LSS. 
 
 ## Acknowledgement
 Based on Alexander Batchelor: Modeling kite deformation with particle system model.
