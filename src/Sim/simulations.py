@@ -768,7 +768,7 @@ class Simulate_Lightsail(Simulate):
                 done= True
                 stable = True
             elif (abs(COM[0])>= length_scale or abs(COM[1])>= length_scale
-                       or abs(attitude[0])>=10 or abs(attitude[1])>=10):
+                       or abs(attitude[0])>=5 or abs(attitude[1])>=5):
                 COM/=length_scale
                 print(f'Simulation halted: Lightsail broke perimiter {COM=} [D]')
                 done = True
