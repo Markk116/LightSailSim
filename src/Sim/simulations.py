@@ -363,7 +363,7 @@ class Simulate_airbag(Simulate):
         return ax
 
 
-class SimulateTripleChainWithMass(Simulate): 
+class SimulateTripleChainWithMass(Simulate):
     """
     Simulate chain of  links joining in the center where there is a large mass. Used for testing.
     """
@@ -613,16 +613,16 @@ class Simulate_Lightsail(Simulate):
 
         keys_1d = ['abs_force', "E_kin_xy", "E_kin_rot"]
         for key in keys_1d:
-            if not key in self.PS.history.keys():
+            if not key in self.PS.history.keys() or len(self.PS.history[key]) != int(self.params['t_steps']):
                 self.PS.history[key] = np.zeros(int(self.params['t_steps']))
 
         keys_2d = ['net_force', 'net_moment', 'lin_accel', 'rot_accel']
         for key in keys_2d:
-            if not key in self.PS.history.keys():
+            if not key in self.PS.history.keys() or len(self.PS.history[key]) != int(self.params['t_steps']):
                 self.PS.history[key] = np.zeros((int(self.params['t_steps']),3))
         keys_6d = ['position', 'velocity']
         for key in keys_6d:
-            if not key in self.PS.history.keys():
+            if not key in self.PS.history.keys() or len(self.PS.history[key]) != int(self.params['t_steps']):
                 self.PS.history[key] = np.zeros((int(self.params['t_steps']),6))
 
         if plotframes:
@@ -771,6 +771,9 @@ class Simulate_Lightsail(Simulate):
                        or abs(attitude[0])>=10 or abs(attitude[1])>=10):
                 COM/=length_scale
                 print(f'Simulation halted: Lightsail broke perimiter {COM=} [D]')
+                done = True
+                stable = False
+            elif step > self.params['t_steps']-1:
                 done = True
                 stable = False
 
