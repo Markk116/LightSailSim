@@ -50,36 +50,66 @@ class ParticleSystemRust:
         self.__params = sim_param
         self.__use_cg = use_cg_solver
 
+        # Convert connectivity matrix - handle SpringDamperType enums
+        try:
+            from ..particleSystem.SpringDamper import SpringDamperType
+        except ImportError:
+            from particleSystem.SpringDamper import SpringDamperType
+        rust_connectivity = []
+        for conn in connectivity_matrix:
+            conn_copy = [float(conn[0]), float(conn[1]), float(conn[2]), float(conn[3])]  # [i, j, k, c]
+            if len(conn) >= 5:
+                # Convert SpringDamperType enum to int
+                link_type = conn[4]
+                if hasattr(link_type, 'value'):
+                    # Handle enum by checking value
+                    val_str = str(link_type.value).lower()
+                    if 'noncompressive' in val_str:
+                        conn_copy.append(1.0)
+                    elif 'nontensile' in val_str:
+                        conn_copy.append(2.0)
+                    else:
+                        conn_copy.append(0.0)
+                elif isinstance(link_type, (int, float)):
+                    conn_copy.append(float(link_type))
+                else:
+                    # Default to 0
+                    conn_copy.append(0.0)
+            rust_connectivity.append(conn_copy)
+
         # Convert initial conditions to the format expected by Rust
         # Python format: [[pos, vel, mass, fixed, constraint, constraint_type], ...]
         # Rust format: [[x, y, z, vx, vy, vz, mass, fixed, cx, cy, cz, ctype], ...]
         rust_initial_conditions = []
         for ic in initial_conditions:
-            pos = ic[0]  # [x, y, z]
-            vel = ic[1]  # [vx, vy, vz]
-            mass = ic[2]
+            pos = np.asarray(ic[0])  # [x, y, z]
+            vel = np.asarray(ic[1])  # [vx, vy, vz]
+            mass = float(ic[2])
             fixed = 1.0 if ic[3] else 0.0
 
             # Handle constraints
             if fixed and len(ic) >= 5:
-                constraint = ic[4]  # Constraint vector
+                constraint = np.asarray(ic[4])  # Constraint vector
                 constraint_type = ic[5] if len(ic) >= 6 else 'point'
 
                 # Map constraint type to number
                 ctype_map = {'free': 0, 'point': 1, 'line': 2, 'plane': 3}
                 ctype = ctype_map.get(constraint_type, 1)
 
-                rust_ic = [pos[0], pos[1], pos[2], vel[0], vel[1], vel[2],
-                          mass, fixed, constraint[0], constraint[1], constraint[2], ctype]
+                rust_ic = [float(pos[0]), float(pos[1]), float(pos[2]),
+                          float(vel[0]), float(vel[1]), float(vel[2]),
+                          mass, fixed,
+                          float(constraint[0]), float(constraint[1]), float(constraint[2]), float(ctype)]
             else:
-                rust_ic = [pos[0], pos[1], pos[2], vel[0], vel[1], vel[2],
+                rust_ic = [float(pos[0]), float(pos[1]), float(pos[2]),
+                          float(vel[0]), float(vel[1]), float(vel[2]),
                           mass, fixed, 0.0, 0.0, 0.0, 1.0]
 
             rust_initial_conditions.append(rust_ic)
 
         # Create Rust particle system
         self.__ps_rust = particle_system_rs.ParticleSystemRust(
-            connectivity_matrix,
+            rust_connectivity,
             rust_initial_conditions,
             sim_param
         )

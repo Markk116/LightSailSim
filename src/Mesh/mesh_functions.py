@@ -171,7 +171,7 @@ def mesh_airbag_square_cross(length, width= 0, mesh_edge_length = 1/10,  params 
     if width==0:
         width = length
 
-    initial_conditions, connections = meshfunct(length,
+    connections, initial_conditions = meshfunct(length,
                                                 width,
                                                 mesh_edge_length,
                                                 params)
@@ -184,7 +184,7 @@ def mesh_airbag_square_cross(length, width= 0, mesh_edge_length = 1/10,  params 
 
 
         # Fixing s.t. center node only move in z axis
-        if (particle[0] == [0,0,0]).all():
+        if np.allclose(particle[0], [0,0,0]):
             particle[3] = True
             particle.append([0,0,1])
             particle.append('line')
@@ -224,7 +224,7 @@ def mesh_airbag_square_cross(length, width= 0, mesh_edge_length = 1/10,  params 
         for link in connections:
             link.append(linktype)
 
-    return connections, initial_conditions
+    return initial_conditions, connections
 
 def mesh_phc_square_cross(length, 
                             width= 0, 

@@ -1,0 +1,26 @@
+======================================================================
+AIRBAG SCALING BENCHMARK
+======================================================================
+Time limit per size: 30s
+Implementation: Rust
+
+======================================================================
+Testing 10x10 airbag mesh
+======================================================================
+Traceback (most recent call last):
+  File "/home/user/LightSailSim/benchmark_airbag_scaling.py", line 344, in <module>
+    results_rust = run_scaling_benchmark(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/LightSailSim/benchmark_airbag_scaling.py", line 301, in run_scaling_benchmark
+    result = run_airbag_simulation(n_segments, time_limit=time_limit,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/LightSailSim/benchmark_airbag_scaling.py", line 137, in run_airbag_simulation
+    initial_conditions, connections, params = create_airbag_mesh(n_segments)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/LightSailSim/benchmark_airbag_scaling.py", line 74, in create_airbag_mesh
+    initial_conditions, connections = MF.mesh_airbag_square_cross(
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/LightSailSim/src/Mesh/mesh_functions.py", line 192, in mesh_airbag_square_cross
+    elif particle[0][0] == length and particle[0][1] == 0:
+         ~~~~~~~~~~~^^^
+TypeError: 'int' object is not subscriptable
