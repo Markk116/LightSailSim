@@ -271,7 +271,7 @@ class ParticleSystem:
         b = np.array(b)[mask]
 
         # BiCGSTAB from scipy library
-        dv_filtered, _ = bicgstab(A, b, tol=self.__rtol, atol=self.__atol, maxiter=self.__maxiter)
+        dv_filtered, _ = bicgstab(A, b, rtol=self.__rtol, atol=self.__atol, maxiter=self.__maxiter)
         dv[mask] = dv_filtered
 
         # numerical time integration following implicit Euler scheme

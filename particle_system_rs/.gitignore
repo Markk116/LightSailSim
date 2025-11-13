@@ -1,0 +1,15 @@
+# Rust build artifacts
+/target/
+Cargo.lock
+
+# Python build artifacts
+*.pyc
+__pycache__/
+*.so
+*.pyd
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

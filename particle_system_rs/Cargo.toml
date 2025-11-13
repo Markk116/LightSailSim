@@ -1,0 +1,20 @@
+[package]
+name = "particle_system_rs"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "particle_system_rs"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version = "0.23", features = ["extension-module", "abi3-py38"] }
+numpy = "0.23"
+ndarray = "0.16"
+rayon = "1.10"
+sprs = "0.11"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
