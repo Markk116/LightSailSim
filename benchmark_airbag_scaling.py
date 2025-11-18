@@ -81,19 +81,36 @@ def create_airbag_mesh(n_segments, half_width=0.422, params=None):
     return initial_conditions, connections, params
 
 
-def calculate_airbag_forces(PS, pressure):
-    """Calculate pressure forces on airbag surface."""
+def calculate_airbag_forces(PS, pressure, half_width=0.422):
+    """Calculate pressure forces on airbag surface.
+
+    For the airbag problem, pressure acts normal to the membrane surface.
+    We approximate by applying uniform upward (+Z) force on all particles.
+    """
     n_particles = PS.n
     f_ext = np.zeros(n_particles * 3)
 
-    # Find surface areas
+    # Find surface areas using Python PS method if available
     try:
-        surface_areas = PS.find_surface()
-        f_ext = (surface_areas * pressure).flatten()
-    except:
-        # Fallback: uniform pressure approximation
-        print("Warning: Surface calculation failed, using approximation")
+        if hasattr(PS, 'find_surface'):
+            surface_areas = PS.find_surface()
+            f_ext = (surface_areas * pressure).flatten()
+            return f_ext
+    except Exception as e:
         pass
+
+    # Fallback: uniform pressure approximation
+    # Total area of the quarter airbag = half_width^2
+    # Distribute pressure force among all particles
+    total_area = half_width * half_width
+    area_per_particle = total_area / n_particles
+    force_per_particle = pressure * area_per_particle
+
+    # Apply force in +Z direction on all particles
+    # This is a simplification - real pressure acts normal to surface
+    f_ext[2::3] = force_per_particle
+
+    print(f"Applied uniform pressure: {force_per_particle:.2f} N per particle")
 
     return f_ext
 
